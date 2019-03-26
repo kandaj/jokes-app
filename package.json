@@ -24,7 +24,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev-api": "nodemon api/index.js",
-    "api": "node api/index.js"
+    "api": "node api/index.js",
+    "postinstall": "npm install --prefix ./api"
   },
   "eslintConfig": {
     "extends": "react-app"
