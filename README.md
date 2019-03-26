@@ -15,4 +15,11 @@ starts express API at port 3050
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.
+Launches the app test runner in the interactive watch mode.
+
+### `npm run api-test`
+
+Launches the API test.
+
+
+

@@ -7,7 +7,7 @@ var Datastore = require('nedb')
     , db = new Datastore();
 const path = require("path")
 const parser   = require('body-parser')
-const webRoot = __dirname + '/../build'
+const webRoot = __dirname + '/../../build'
 console.log(webRoot)
 
 app.use(parser.urlencoded({ extended: true }));
@@ -26,7 +26,7 @@ fs.readFile(__dirname+'/jokes.csv', (err, data) => {
 
 
 db.loadDatabase(function (err) {
-    app.use('/', express.static(path.join(__dirname, '/../build')))
+    app.use('/', express.static(webRoot))
 
     app.get('/joke', function (req, res) {
         let i = Math.floor((Math.random() * 125));
@@ -41,18 +41,13 @@ db.loadDatabase(function (err) {
         });
     });
 
-    app.get('/joke/:id', function (req, res) {
-        db.find({id: req.params.id }, function (err, docs) {
-            res.status(200).json(docs);
-        });
-    });
 
     app.post('/joke/add', function (req, res) {
         let postData = req.body
         db.count({}, function (err, count) {
             postData = {...postData, ...{id:Number(count+1)}}
             db.insert(postData, function (err, docs) {
-                res.status(200).json(docs);
+                res.status(201).json(docs);
             });
         });
 
@@ -78,3 +73,5 @@ db.loadDatabase(function (err) {
 app.listen(3050, function () {
   console.log('Example app listening on port 3050.');
 });
+
+module.exports = app
